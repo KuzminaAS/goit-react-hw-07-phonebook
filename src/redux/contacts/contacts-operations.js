@@ -6,7 +6,7 @@ axios.defaults.baseURL = 'http://localhost:3000';
 const fetchContacts = () => dispatch => {
   dispatch(fetchContactRequest())
 
-  axios.post('/contacts').then(({ data }) => dispatch(fetchContactSuccess(data)))
+  axios.get('/contacts').then(({ data }) => dispatch(fetchContactSuccess(data)))
    .catch(error => dispatch(fetchContactError(error)));
 }
 
