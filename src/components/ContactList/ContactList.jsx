@@ -1,13 +1,14 @@
 import React from 'react';
 
 import ContactListItem from '../ContactListItem';
-import { ReactComponent as UserIcon } from '../icons/user.svg'
+import { ReactComponent as UserIcon } from '../../icons/user.svg'
 import { connect } from 'react-redux';
-import {deleteContact} from '../../redux/contacts/contacts-actions'
+import operations from '../../redux/contacts/contacts-operations';
+import { getContactsFilter, getContacts } from '../../redux/contacts/contacts-selectors';
 
 const ContactList = ({ list, onDelete }) => {
 
-    const contactElements = list.map((item, index) => <ContactListItem  key={item.id} {...item} onDelete={()=>onDelete(index)}> <UserIcon/> </ContactListItem>)
+    const contactElements = list.map((item) => <ContactListItem  key={item.id} {...item} onDelete={()=>onDelete(item.id)}> <UserIcon/> </ContactListItem>)
     return (
         <ul>
             {contactElements}
@@ -17,16 +18,17 @@ const ContactList = ({ list, onDelete }) => {
 };
 
 
-const mapStateToProps = ({items,filter}) => { 
+const mapStateToProps = state => { 
 
-    const normalizeFilter = filter.toLowerCase();
-    
-    const visibleContacts = items.filter(contact => contact.name.toLowerCase().includes(normalizeFilter));
+    const normalizeFilter = getContactsFilter(state).toLowerCase();
+    const visibleContacts = getContacts(state).filter(contact => contact.name.toLowerCase().includes(normalizeFilter))
     return {
         list: visibleContacts
     }
 }
 
-const mapDispatchToProps = dispatch => ({onDelete: (index) => dispatch(deleteContact(index))});
+const mapDispatchToProps = dispatch => ({
+    onDelete: id => dispatch(operations.deleteContact(id))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactList);

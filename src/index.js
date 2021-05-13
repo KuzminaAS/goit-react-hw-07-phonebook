@@ -4,18 +4,18 @@ import {BrowserRouter} from 'react-router-dom'
 import { Provider } from 'react-redux';
 import './index.css';
 import App from './App';
-import storeAll  from './redux/contacts/store.js';
+import store  from './redux/contacts/store.js';
 import reportWebVitals from './reportWebVitals';
-import { PersistGate } from 'redux-persist/integration/react';
+// import { PersistGate } from 'redux-persist/integration/react';
 
 ReactDOM.render(
   <React.StrictMode>
-     <Provider store={storeAll.store} persistor={storeAll.persistor}>
-    <PersistGate loading={null} persistor={storeAll.persistor}>
+     <Provider store={store} >
+    {/* <PersistGate loading={null} persistor={storeAll.persistor}> */}
       <BrowserRouter>
         <App />
         </BrowserRouter>
-      </PersistGate>
+      {/* </PersistGate> */}
       </Provider>
   </React.StrictMode>,
   document.getElementById('root')
