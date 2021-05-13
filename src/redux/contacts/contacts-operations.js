@@ -4,9 +4,12 @@ import { addContactRequest, addContactSuccess, addContactError, deleteContactReq
 axios.defaults.baseURL = 'http://localhost:3000';
 
 const fetchContacts = () => dispatch => {
-  dispatch(fetchContactRequest())
+  dispatch(fetchContactRequest());
 
-  axios.get('/contacts').then(({ data }) => dispatch(fetchContactSuccess(data)))
+  axios.get('/contacts')
+    .then(({ data }) => {
+        dispatch(fetchContactSuccess(data))
+      })
    .catch(error => dispatch(fetchContactError(error)));
 }
 
