@@ -52,7 +52,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchContacts: () => dispatch(operations.fetchContacts)
+  fetchContacts: () => dispatch(operations.fetchContacts())
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(Phonebook);
